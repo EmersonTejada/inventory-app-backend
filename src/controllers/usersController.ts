@@ -53,3 +53,13 @@ export const getUserProfile: RequestHandler = async (req, res) => {
     throw new UnauthorizedError("Token inválido");
   }
 };
+
+export const logoutUser: RequestHandler = (req, res) => {
+  res
+    .clearCookie("access_token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+    })
+    .json({ message: "Logout exitoso" });
+}
